@@ -10,18 +10,29 @@ class MainWindow(QWidget):
         # 1つ目のチェックボックス
         self.upper = QCheckBox('大文字', self)
         self.upper.move(100, 30)
+        self.upper.stateChanged.connect(self.uppercase)
 
-        # 2つ目のチェックボックス
-        self.lower = QCheckBox('小文字', self)
-        self.lower.move(180, 30)
+        #横のレイアウト
+        self.horizon = QHBoxLayout()
+        #縦のレイアウト
+        self.vertical = QVBoxLayout()
 
-        # グループ化
-        self.group = QButtonGroup()
-        self.group.addButton(self.upper, 1)
-        self.group.addButton(self.lower, 2)
+        self.horizon.addLayout(self.vertical)
+        self.setLayout(self.horizon)
 
         self.setGeometry(300, 50, 400, 350)
         self.setWindowTitle('QCheckBox')
+
+    def uppercase(self):
+        if(self.upper.isChecked()):
+            self.upper_a = QCheckBox('A',self)
+            self.vertical.addWidget(self.upper_a)
+
+            self.upper_b = QCheckBox('B',self)
+            self.vertical.addWidget(self.upper_b)
+        else:
+            self.vertical.removeWidget(self.upper_a)
+            self.vertical.removeWidget(self.upper_b)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
