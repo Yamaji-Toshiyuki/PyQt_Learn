@@ -17,6 +17,10 @@ class MainWindow(QWidget):
         #縦のレイアウト
         self.vertical = QVBoxLayout()
 
+        #ボタンの追加
+        self.button = QPushButton('execute', self)
+        self.button.clicked.connect(self.output)
+
         self.horizon.addLayout(self.vertical)
         self.setLayout(self.horizon)
 
@@ -33,6 +37,16 @@ class MainWindow(QWidget):
         else:
             self.vertical.removeWidget(self.upper_a)
             self.vertical.removeWidget(self.upper_b)
+
+    def output(self):
+        outputs = []
+        if(self.upper_a.isChecked()):
+            outputs.append("A")
+        if(self.upper_b.isChecked()):
+            outputs.append("B")
+        
+        for output in outputs:
+            print(output)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
